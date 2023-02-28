@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+    <style>
+        table, th, td {
+          border:1px solid black;
+        }
+
+        td{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your input words:</h1>
+    <table style="width:100%">
+        <tr>
+            <th>Word</th>
+            <th>Next Word</th>
+            <th>Count</th>
+            <th>Probability</th>
+        </tr>
+        <tr data-th-each="word : ${list}">
+            <td data-th-text="${word}"></td>
+            <td>xxx</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+    </table>
+</body>
+</html>
