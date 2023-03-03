@@ -9,8 +9,11 @@
 <body>
     <h1>Enter words/phrases into below text-box:</h1>
     <form action="#" th:action="@{/words/calculate}" th:object="${wordsModel}" method="get">
-        <input type="text" th:field="*{fullWords}">
-        <button type="submit">Calculate</button>
+        <!-- <input type="text" th:field="*{fullWords}"> -->
+        <textarea name="" id="" cols="80" rows="10" th:field="*{fullWords}"></textarea>
+        <div>
+            <button type="submit">Calculate</button>
+        </div>
     </form>
 </body>
 </html>

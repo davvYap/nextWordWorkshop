@@ -16,19 +16,45 @@
     </style>
 </head>
 <body>
-    <h1>Your input words:</h1>
+    <h1>Analysis in a map</h1>
     <table style="width:100%">
         <tr>
             <th>Word</th>
-            <th>Next Word</th>
-            <th>Count</th>
-            <th>Probability</th>
+            <th>Next-Word & Probability</th>
         </tr>
-        <tr data-th-each="word : ${list}">
-            <td data-th-text="${word}"></td>
-            <td>xxx</td>
-            <td>0</td>
-            <td>0</td>
+        <!-- Iterate over the outer map entries -->
+        <th:block data-th-each="entry : ${answerMap}">
+            <tr>
+            <!-- Display the outer key -->
+            <td data-th-text="${entry.key}"></td>
+            <!-- Iterate over the inner map entries -->
+            <td>
+                <table>
+                <tr>
+                    <th>Next-Word</th>
+                    <th>Probability</th>
+                </tr>
+                <th:block data-th-each="innerEntry : ${entry.value}">
+                    <tr>
+                    <!-- Display the inner key and value -->
+                    <td data-th-text="${innerEntry.key}"></td>
+                    <td data-th-text="${innerEntry.value}"></td>
+                    </tr>
+                </th:block>  
+                </table>  
+            </td>  
+            </tr>  
+        </th:block>  
+    </table>
+    <h1>Word's Count:</h1>
+    <table style="width:100%">
+        <tr>
+            <th>Word</th>
+            <th>Count</th>
+        </tr>
+        <tr data-th-each="word : ${wordsMap}">
+            <td data-th-text="${word.key}"></td>
+            <td data-th-text="${word.value}"></td>
         </tr>
     </table>
 </body>
