@@ -1,15 +1,5 @@
 package sg.edu.nus.iss.nextWordWorkshop.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.nus.iss.nextWordWorkshop.model.Words;
-import sg.edu.nus.iss.nextWordWorkshop.util.wordsCountUtil;
+import sg.edu.nus.iss.nextWordWorkshop.service.WordsCountService;
 
 @Controller
 @RequestMapping(path={"/","/words"})
-public class wordsCountController {
+public class WordsCountController {
 
     @Autowired
-    private wordsCountUtil wordsCU;
+    private WordsCountService wordsCU;
     
     @GetMapping(path="/input")
     public String showInputForm(Model m){

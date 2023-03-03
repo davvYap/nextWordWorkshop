@@ -1,4 +1,4 @@
-package sg.edu.nus.iss.nextWordWorkshop.util;
+package sg.edu.nus.iss.nextWordWorkshop.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,11 +9,18 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-@Component
-public class wordsCountUtil {
+import sg.edu.nus.iss.nextWordWorkshop.repository.WordsCountRepo;
+
+@Service
+public class WordsCountService {
+
+    @Autowired
+    private WordsCountRepo wordsCR;
+
     public void calculateProbability(Model m, String fullWords){
         String newWords = fullWords.replaceAll("\\p{Punct}", " ");
         String[] strArr = newWords.split(" ");
@@ -32,9 +39,12 @@ public class wordsCountUtil {
         Map<String,Map<String,Integer>> finalMap = getFinalMap(uniqueList, fullWords);
         Map<String,Map<String,Double>> answerMap = getSolutionMap(finalMap);
 
-        m.addAttribute("list",uniqueList.toArray());
+        //m.addAttribute("list",uniqueList.toArray());
         m.addAttribute("wordsMap",wordsMap);
         m.addAttribute("answerMap",answerMap);
+
+        wordsCR.saveCorpusCountResult(wordsMap);
+        //wordsCR.saveCorpusProbabilityResult(answerMap);
     }
 
     // get all words from the input into list
