@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Word Result</title>
+    <style>
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+
+      body,
+      td {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      Analysis for word:
+      <span data-th-text="${selectedWord.getCurrWord()}"></span>
+    </h1>
+    <table style="width: 100%">
+      <tr>
+        <th>Next-Word</th>
+        <th>Probability</th>
+      </tr>
+      <tr data-th-each="nextWord : ${selectedWord.getNextWordProb()}">
+        <td data-th-text="${nextWord.key}"></td>
+        <td data-th-text="${nextWord.value}"></td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.nextWordWorkshop.model;
 
-public class Words {
+
+public class Words{
     private String fullWords = null;
 
     public String getFullWords() {

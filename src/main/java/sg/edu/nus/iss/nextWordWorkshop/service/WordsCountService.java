@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import sg.edu.nus.iss.nextWordWorkshop.model.Word;
 import sg.edu.nus.iss.nextWordWorkshop.repository.WordsCountRepo;
 
 @Service
@@ -39,12 +40,30 @@ public class WordsCountService {
         Map<String,Map<String,Integer>> finalMap = getFinalMap(uniqueList, fullWords);
         Map<String,Map<String,Double>> answerMap = getSolutionMap(finalMap);
 
+        // Model binding to "result.html"
         //m.addAttribute("list",uniqueList.toArray());
         m.addAttribute("wordsMap",wordsMap);
         m.addAttribute("answerMap",answerMap);
 
-        wordsCR.saveCorpusCountResult(wordsMap);
+        //save to Redis in the form of <CurrWord, Count>
+        //wordsCR.saveCorpusCountResult(wordsMap);
+
+        // save to Redis in the form of <CurrWord, Map<NextWord, Probability>>, however not supported by Redis
         //wordsCR.saveCorpusProbabilityResult(answerMap);
+
+        // to save each Word object into the Redis
+        answerMap.forEach((outerKey, innerMap) -> {
+            Word newWord = new Word(outerKey);
+            Map<String, Double> nextWordMap = new HashMap<>();
+
+            innerMap.forEach((innerKey, innerValue) -> {
+                nextWordMap.put(innerKey, innerValue);
+            });
+            newWord.setNextWordProb(nextWordMap);
+
+            // save to Redis in the form of <CurrWord, Word object>
+            wordsCR.saveCorpusCountResult(newWord);
+        });
     }
 
     // get all words from the input into list
@@ -156,4 +175,8 @@ public class WordsCountService {
         }
         return answerMap;
     }
+
+    public Word findWordFromRepo(String word){
+        return wordsCR.findByWord(word);
+    };
 }
