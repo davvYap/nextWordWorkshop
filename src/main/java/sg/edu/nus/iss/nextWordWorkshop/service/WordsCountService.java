@@ -51,7 +51,9 @@ public class WordsCountService {
         // save to Redis in the form of <CurrWord, Map<NextWord, Probability>>, however not supported by Redis
         //wordsCR.saveCorpusProbabilityResult(answerMap);
 
-        // to save each Word object into the Redis
+        // to save each Word object into the Redis & Words Object list 
+        List<Word> wordList = new LinkedList<>();
+
         answerMap.forEach((outerKey, innerMap) -> {
             Word newWord = new Word(outerKey);
             Map<String, Double> nextWordMap = new HashMap<>();
@@ -63,7 +65,12 @@ public class WordsCountService {
 
             // save to Redis in the form of <CurrWord, Word object>
             wordsCR.saveCorpusCountResult(newWord);
+
+            // save each Word Object into Words Object List
+            wordList.add(newWord);
         });
+
+        m.addAttribute("wordList",wordList);
     }
 
     // get all words from the input into list

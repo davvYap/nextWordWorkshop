@@ -32,8 +32,8 @@ public class WordsCountController {
         wordsCU.calculateProbability(m, fullWords);
         return "result";
     }
-    
-    //using path variable 
+
+    //using path variable --> pass Word object to wordResult.html, but rmb the PathVariable is String !!!
     @GetMapping(path="/calculate/{word}")
     public String getWordResult(Model model, @PathVariable String word){
         Word selectedWord = wordsCU.findWordFromRepo(word);

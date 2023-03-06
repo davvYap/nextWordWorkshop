@@ -23,15 +23,17 @@
       Analysis for word:
       <span data-th-text="${selectedWord.getCurrWord()}"></span>
     </h1>
-    <table style="width: 100%">
-      <tr>
-        <th>Next-Word</th>
-        <th>Probability</th>
-      </tr>
-      <tr data-th-each="nextWord : ${selectedWord.getNextWordProb()}">
-        <td data-th-text="${nextWord.key}"></td>
-        <td data-th-text="${nextWord.value}"></td>
-      </tr>
-    </table>
+    <div data-th-object="${selectedWord}">
+      <table style="width: 100%">
+        <tr>
+          <th>Next-Word</th>
+          <th>Probability</th>
+        </tr>
+        <tr data-th-each="nextWord : ${selectedWord.getNextWordProb()}">
+          <td data-th-text="${nextWord.key}"></td>
+          <td data-th-text="${nextWord.value}"></td>
+        </tr>
+      </table>
+    </div>
   </body>
 </html>
